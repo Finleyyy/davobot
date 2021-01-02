@@ -25,7 +25,7 @@ if __name__ == '__main__':
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="anime"))
     botUser = bot.user.name + '#' + bot.user.discriminator
-    print('Logged in as ' + botUser)
+    print('-- Logged in as ' + botUser)
 
 
 @bot.event
@@ -43,5 +43,5 @@ async def ping(ctx):
     await ctx.send('Pong! {0} seconds latency'.format(round(bot.latency, 3)))
 
 
-print("Bot is ready!")
+print("-- Bot is ready!")
 bot.run(TOKEN)
