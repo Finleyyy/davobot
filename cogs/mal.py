@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+
 import SQL
 
 
@@ -22,7 +23,7 @@ class MALCog(commands.Cog):
     @commands.command(name='mal', description="Sends link to given MAL")
     async def mal(self, ctx, *args):
         if len(args) > 1:
-            await ctx.send('The username has not to contain spaces.')
+            await ctx.send('The username must not contain any spaces.')
         elif len(args) == 1:
             await ctx.send(embed=createEmbed(args[0]))
         elif len(args) == 0:
@@ -35,7 +36,7 @@ class MALCog(commands.Cog):
             else:
                 await ctx.send(embed=createEmbed("Davolaf"))
 
-    @commands.command(name='malink', description="")
+    @commands.command(name='malink', description="Allows you to set your MAL username")
     async def malink(self, ctx, *args):
         if len(args) == 0:
             await ctx.send('You have to specify a username!')
@@ -43,25 +44,17 @@ class MALCog(commands.Cog):
             author = f"{ctx.author.name}#{ctx.author.discriminator}"
             command = SQL.addLink(author, args[0])
             if str(command).startswith('duplicate'):
-                await ctx.send('You already linked your MAL')
+                await ctx.send('You already linked your MAL!')
             else:
                 await ctx.send(f'You succesfully set \"{args[0]}\" as your MAL username.')
         elif len(args) > 1:
-            await ctx.send('The username has not to contain spaces.')
+            await ctx.send('The username must not contain any spaces!')
 
-    @commands.command(name='madlink', description="")
+    @commands.command(name='madlink', description="Allows you to remove your MAL username")
     async def madlink(self, ctx):
         author = f"{ctx.author.name}#{ctx.author.discriminator}"
         SQL.delLink(author)
         await ctx.send('Your MAL username was cleared!')
-
-    @commands.command(name='checklink', description="")
-    async def checklink(self, ctx):
-        author = f"{ctx.author.name}#{ctx.author.discriminator}"
-        test = " "
-        listb = SQL.checkLink(author)
-        test = test.join(listb).lstrip('(').rstrip(')').replace(',', ' ->').replace('\'', '', 4)
-        await ctx.send(str(test))
 
 
 def setup(bot):
