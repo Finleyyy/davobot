@@ -4,10 +4,15 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+import SQL
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 initial_extensions = ['cogs.mal']
+
+print("----- Running setupSQL -----")
+SQL.setupSQL()
 
 bot.remove_command('help')
 
