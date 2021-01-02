@@ -1,4 +1,5 @@
 import os
+
 import mariadb
 from dotenv import load_dotenv
 
@@ -14,11 +15,8 @@ def setupSQL():
     cur = conn.cursor()
     try:
         # Creating a new table
-        query = ("CREATE TABLE IF NOT EXISTS mal(`discord_user` VARCHAR(45) NOT NULL,`mal_user` VARCHAR(45) NOT " +
-                 "NULL," +
-                 "PRIMARY KEY ( " +
-                 "`discord_user`),UNIQUE INDEX `discord_user_UNIQUE` (`discord_user` ASC) VISIBLE,UNIQUE INDEX " +
-                 "`mal_user_UNIQUE` (`mal_user` ASC) VISIBLE);")
+        query = ("CREATE TABLE mal (`discord_user` VARCHAR(45) NOT NULL, `mal_user` VARCHAR(45) NOT NULL, PRIMARY KEY "
+                 + "(`discord_user`));")
         cur.execute(query)
         conn.close()
     except mariadb.Error as e:
