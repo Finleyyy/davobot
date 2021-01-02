@@ -20,7 +20,7 @@ if __name__ == '__main__':
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="anime"))
     botUser = bot.user.name + '#' + bot.user.discriminator
-    print('Loged in as ' + botUser)
+    print('Logged in as ' + botUser)
 
 
 @bot.event
