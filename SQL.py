@@ -15,7 +15,8 @@ def setupSQL():
     cur = conn.cursor()
     try:
         # Creating a new table
-        query = ("CREATE TABLE mal (`discord_user` VARCHAR(45) NOT NULL, `mal_user` VARCHAR(45) NOT NULL, PRIMARY KEY "
+        query = ("CREATE TABLE IF NOT EXISTS mal (`discord_user` VARCHAR(45) NOT NULL, `mal_user` VARCHAR(45) NOT "
+                 "NULL, PRIMARY KEY "
                  + "(`discord_user`));")
         cur.execute(query)
         conn.close()
