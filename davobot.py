@@ -9,7 +9,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 initial_extensions = ['cogs.mal']
 
-bot.remove_command('mal')
+bot.remove_command('help')
 
 if __name__ == '__main__':
     for extension in initial_extensions:
