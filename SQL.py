@@ -10,7 +10,7 @@ USER = os.getenv('SQL_USER')
 
 
 def setupSQL():
-    conn = mariadb.connect(user=USER, password=PW, host="localhost", database=DB)
+    conn = mariadb.connect(user=USER, password=PW, host='localhost', database=DB)
     conn.cursor().close()
     cur = conn.cursor()
     try:
@@ -21,11 +21,11 @@ def setupSQL():
         cur.execute(query)
         conn.close()
     except mariadb.Error as e:
-        print(f"Error d1: {e}")
+        print(f'Error d1: {e}')
 
 
 def execute():
-    conn = mariadb.connect(user=USER, password=PW, host="localhost", database=DB)
+    conn = mariadb.connect(user=USER, password=PW, host='localhost', database=DB)
     conn.cursor().close()
     cur = conn.cursor()
     try:
@@ -34,11 +34,11 @@ def execute():
             result = cur
         return result
     except mariadb.Error as e:
-        print(f"Error b1: {e}")
+        print(f'Error b1: {e}')
 
 
 def checkLink(discord):
-    conn = mariadb.connect(user=USER, password=PW, host="localhost", database=DB)
+    conn = mariadb.connect(user=USER, password=PW, host='localhost', database=DB)
     conn.cursor().close()
     cur = conn.cursor()
     try:
@@ -46,14 +46,14 @@ def checkLink(discord):
         command = f"SELECT * FROM mal WHERE discord_user='{discord}';"
         cur.execute(command)
         for (mal_user) in cur:
-            result.append(f"{mal_user}")
+            result.append(f'{mal_user}')
         return result
     except mariadb.Error as e:
-        print(f"Error a1: {e}")
+        print(f'Error a1: {e}')
 
 
 def addLink(discord, mal):
-    conn = mariadb.connect(user=USER, password=PW, host="localhost", database=DB)
+    conn = mariadb.connect(user=USER, password=PW, host='localhost', database=DB)
     conn.cursor().close()
     cur = conn.cursor()
     try:
@@ -63,12 +63,12 @@ def addLink(discord, mal):
         cur.close()
     except mariadb.Error as e:
         if str(e).__contains__('Duplicate entry'):
-            return "duplicate"
-        print(f"Error g1: {e}")
+            return 'duplicate'
+        print(f'Error g1: {e}')
 
 
 def delLink(discord):
-    conn = mariadb.connect(user=USER, password=PW, host="localhost", database=DB)
+    conn = mariadb.connect(user=USER, password=PW, host='localhost', database=DB)
     conn.cursor().close()
     cur = conn.cursor()
     try:
@@ -77,4 +77,4 @@ def delLink(discord):
         conn.commit()
         cur.close()
     except mariadb.Error as e:
-        print(f"Error g1: {e}")
+        print(f'Error g1: {e}')

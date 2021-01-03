@@ -27,8 +27,7 @@ class MALCog(commands.Cog):
         elif len(args) == 1:
             await ctx.send(embed=createEmbed(args[0]))
         elif len(args) == 0:
-            author = f"{ctx.author.name}#{ctx.author.discriminator}"
-            checkLink = SQL.checkLink(author)
+            checkLink = SQL.checkLink(ctx.author.id)
             if len(checkLink) > 0:
                 convStr = checkLink[0].lstrip('(').rstrip(')').replace(',', '', 1).replace('\'', '', 4)
                 strB = strToList(convStr)[1]
@@ -41,8 +40,7 @@ class MALCog(commands.Cog):
         if len(args) == 0:
             await ctx.send('You have to specify a username!')
         elif len(args) == 1:
-            author = f"{ctx.author.name}#{ctx.author.discriminator}"
-            command = SQL.addLink(author, args[0])
+            command = SQL.addLink(ctx.author.id, args[0])
             if str(command).startswith('duplicate'):
                 await ctx.send('You already linked your MAL!')
             else:
@@ -52,8 +50,7 @@ class MALCog(commands.Cog):
 
     @commands.command(name='madlink', description="Allows you to remove your MAL username")
     async def madlink(self, ctx):
-        author = f"{ctx.author.name}#{ctx.author.discriminator}"
-        SQL.delLink(author)
+        SQL.delLink(ctx.author.id)
         await ctx.send('Your MAL username was cleared!')
 
 
