@@ -1,0 +1,21 @@
+<!doctype html>
+<head>
+  <title>Davobot Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<h1 id="title">Davobot Dashboard</h1>
+<nav>
+  {% if not session.logged_in %}
+  <a id="login_btn" href="{{ url_for('login') }}">Login</a>
+  {% else %}
+  <a id="login_btn" href="{{ url_for('logout') }}">Logout</a>
+  {% endif %}
+</nav>
+{% for message in get_flashed_messages() %}
+<div class="flash">{{ message }}</div>
+{% endfor %}
+<div class="content">
+  {% block content %}
+  {% endblock %}
+</div>

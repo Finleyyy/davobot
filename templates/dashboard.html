@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Bot Info</p>
+</br>
+<div class="fathercat">
+    <div class="category" id="first_cat">
+        </br>
+        <span><p class="text"> Latency </p></span>
+        </br>
+        </br>
+        <p> {{latency}}</p>
+    </div>
+    <div class="category" id="middle_cat">
+        </br>
+        <span><p class="text"> Runtime </p></span>
+        </br>
+        </br>
+        <p>Running since: {{runtime}} </p>
+    </div>
+    <div class="category" id="second_cat">
+        </br>
+        <span><p class="text"> Guilds </p></span>
+        </br>
+        {% for guild in guilds['guild'] %}
+        <p>{{guild}}: {{members[loop.index0]}}</p>
+        {% endfor %}
+    </div>
+</div>
+</br>
+</br>
+<p>Commands</p>
+<div class="fathercat">
+    <div class="category" id="left_cat">
+        <form name="postform" id="postform" class="form-horizontal" method="POST">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Post</legend>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <div class="col-md-5">
+                        <br>
+                        <select id="server" name="postserver" class="form-control">
+                            {% for guilds in guilds['id']%}
+                            <option value={{guilds}}>{{names[loop.index0]}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <br>
+                    <div class="col-md-4">
+                        <select id="channel" name="postchannel" class="form-control" required="">
+                            <div id="response"></div>
+                        </select>
+                    </div>
+                </div>
+
+                <script>
+                      $(document).ready(function() {
+                        $("#server").change(function() {
+                          $.ajax({
+                            url: "/_get_data/",
+                            type: "POST",
+                            data: $('#postform').serialize(),
+                            success: function(response) {
+                              document.querySelector('#channel').innerHTML = response.data;
+                            },
+                            error: function(response) {
+                            console.log("error: " + response) }
+                            });
+                        });
+                      });
+
+                </script>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <br>
+                    <div class="col-md-6">
+                        <input id="postmessage" name="postmessage" type="text" placeholder="Your message"
+                               class="form-control input-md" required="">
+
+                    </div>
+                </div>
+
+                <p><input type="submit" value="Send"/></p>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
