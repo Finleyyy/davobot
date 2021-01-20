@@ -1,0 +1,153 @@
+body {
+    background: url("media/rem_bg2.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+    font-family: sans-serif;
+    margin: 10;
+    padding: 1;
+}
+
+legend {
+    color: white;
+}
+
+#title {
+    background: #00365e;
+    color: white;
+    text-align: center;
+    padding: 0.5em;
+    margin-top: 0.2em;
+}
+
+.invis {
+    opacity: 0;
+    size: 0px;
+}
+
+.fathercat {
+    display: block;
+    /* vertical-align: middle; */
+}
+
+.category {
+    height: 300px;
+    width: 300px;
+    margin:0 auto;
+    opacity: 0.5;
+    padding: 1.5em;
+    display: inline-block;
+    background-color: darkblue;
+}
+
+.category:hover {
+    opacity: 1;
+}
+
+#first_cat.category {
+    float: left;
+}
+
+#middle_cat.category {
+    margin:0 auto;
+}
+
+#second_cat.category {
+    float: right;
+}
+
+#leftt_cat.category {
+    float: left;
+}
+
+#right_cat.category {
+    float: right;
+}
+
+/* span {
+    vertical-align: middle;
+} */
+
+h2 {
+    padding: 0.05em;
+}
+
+h1, h2 {
+    font-family: 'Georgia', serif;
+    margin: 0;
+}
+
+#login_btn {
+    border-radius: 35px;
+    color: white;
+    font-size: 30px;
+    background-color: #00365e;
+    padding: 0.25em;
+    border-radius: 5px;
+}
+
+nav {
+    text-align: right;
+    font-size: 0.8em;
+    padding: 0.3em;
+    margin-bottom: 1em;
+}
+
+h1>a {
+    color: white;
+    text-decoration: none;
+}
+
+.content {
+    text-align: center;
+}
+
+p {
+    font-size: 20px;
+    color: white;
+}
+
+.flash {
+    background: #00365e;
+    color: white;
+    margin-top: -1em;
+    padding: 0.5em;
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        opacity:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        opacity:0;
+        visibility:hidden;
+    }
+}
+
+input[type=submit] {
+    padding:5px 15px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    border-radius: 5px;
+}
+
+#login_form {
+    background-color: #3f3f3f;
+    border: 2px solid;
+    border-radius: 15px;
+    border-color: black;
+    padding: 0.5em;
+    display: inline-block;
+}
