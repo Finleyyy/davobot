@@ -19,6 +19,7 @@ print('----- SQL setup done -----')
 
 intents = discord.Intents.default()
 intents.guilds = True
+intents.members = True
 
 
 class Bot(commands.Bot):
@@ -37,7 +38,7 @@ class Bot(commands.Bot):
         print('IPC ready')
 
 
-bot = Bot(command_prefix="!", case_insensitive=True, intents=intents)
+bot = Bot(command_prefix=";", case_insensitive=True, intents=intents)
 
 bot.remove_command('help')
 bot.timervar = timeit.default_timer()
@@ -50,7 +51,15 @@ async def on_message(message):
     if message.content.lower().__contains__('davobot'):
         emoji = '👋'
         await message.add_reaction(emoji)
-        print(message.author.id)
+    if message.content.lower().__contains__('coffee'):
+        emoji = '☕'
+        await message.add_reaction(emoji)
+    if message.content.lower().__contains__('cum'):
+        emoji = '💦'
+        await message.add_reaction(emoji)
+    if message.content.lower().__contains__('tea'):
+        emoji = '🍵'
+        await message.add_reaction(emoji)
     await bot.process_commands(message)
 
 
