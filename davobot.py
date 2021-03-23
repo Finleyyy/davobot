@@ -71,5 +71,5 @@ async def ping(ctx):
 if __name__ == '__main__':
     for extension in initial_extensions:
         bot.load_extension(extension)
-    bot.ipc.start()
+    #bot.ipc.start()
     bot.run(TOKEN)

@@ -21,10 +21,10 @@ class ModeratingCOG(commands.Cog):
     async def leave(self, ctx):
         await ctx.send("https://cdn.discordapp.com/attachments/527876598834135047/823679128117051402/unknown.png")
 
-    @commands.command(name='emergency', description='Mentions the mods')
+    @commands.command(name='emergency', description='Mentions the mods', aliases=['emerg'])
     async def emerg(self, ctx):
         guild = ctx.bot.get_guild(527869594279477251)
-        role = guild.get_role(817845604822024222)
+        role = guild.get_role(817919947862704128)
         for me in role.members:
             await me.send(f"Emergency on Davolaf's server! Issued by <@{ctx.author.id}> / {ctx.author.id}")
         await ctx.send("<@&528156484886855708> There's an emergency!")
