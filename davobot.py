@@ -46,18 +46,23 @@ bot.timervar = timeit.default_timer()
 
 @bot.event
 async def on_message(message):
+    msg = message.content.lower()
     if message.author == bot.user:
         return
-    if message.content.lower().__contains__('davobot'):
+    if 'davobot' in msg:
         emoji = '👋'
-        await message.add_reaction(emoji)
-    if message.content.lower().__contains__('coffee'):
+        if 'dumb' or 'stupid' in msg:
+            await message.channel.send('no u')
+        else:
+            await message.add_reaction(emoji)
+
+    if 'coffee' in msg:
         emoji = '☕'
         await message.add_reaction(emoji)
-    if message.content.lower().__contains__('cum'):
+    if 'cum' in msg:
         emoji = '💦'
         await message.add_reaction(emoji)
-    if message.content.lower().__contains__('tea'):
+    if 'tea' in msg:
         emoji = '🍵'
         await message.add_reaction(emoji)
     await bot.process_commands(message)

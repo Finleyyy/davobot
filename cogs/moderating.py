@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, ChannelNotFound, MissingRequiredArgument
 
+
 class ModeratingCOG(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -22,6 +23,8 @@ class ModeratingCOG(commands.Cog):
         await ctx.send("https://cdn.discordapp.com/attachments/527876598834135047/823679128117051402/unknown.png")
 
     @commands.command(name='emergency', description='Mentions the mods', aliases=['emerg'])
+    @commands.has_role('Guests')
+    @commands.cooldown(1, 30)
     async def emerg(self, ctx):
         guild = ctx.bot.get_guild(527869594279477251)
         role = guild.get_role(817919947862704128)
@@ -29,13 +32,19 @@ class ModeratingCOG(commands.Cog):
             await me.send(f"Emergency on Davolaf's server! Issued by <@{ctx.author.id}> / {ctx.author.id}")
         await ctx.send("<@&528156484886855708> There's an emergency!")
 
-
     @commands.command(name='invite', description='Sends an invite link to the Discord')
     async def invite(self, ctx):
         await ctx.send("https://discord.gg/ru7qzEEQ5w")
 
+    @emerg.error
+    async def emerg_error(self, ctx, error):
+        if isinstance(error, commands.MissingRole):
+            await ctx.send("You can't use the emergency command!")
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.send("The command is on cooldown!")
+
     @post.error
-    async def post_permerror(self, ctx, error):
+    async def post_error(self, ctx, error):
         if isinstance(error, MissingPermissions):
             await ctx.send("You don't have the required permissions to use this command!")
         if isinstance(error, ChannelNotFound):
