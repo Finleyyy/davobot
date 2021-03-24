@@ -56,15 +56,18 @@ async def on_message(message):
         else:
             await message.add_reaction(emoji)
 
-    if 'coffee' in msg:
+    if ' coffee ' in msg:
         emoji = '☕'
         await message.add_reaction(emoji)
-    if 'cum' in msg:
-        emoji = '💦'
-        await message.add_reaction(emoji)
-    if 'tea' in msg:
+    if ' tea ' in msg:
         emoji = '🍵'
         await message.add_reaction(emoji)
+                            # general-chatter                           #osu
+    if message.channel.id == 527876598834135047 or message.channel.id == 703271365591040000:
+        if (' map' in msg) or ('song' in msg):
+            await message.channel.send("Check <#810996735274254337> for beatmaps from Davolaf's TikTok")
+        else:
+            return
     await bot.process_commands(message)
 
 
