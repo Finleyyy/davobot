@@ -3,3 +3,4 @@ discord-ext-ipc==2.0.0
 mariadb==1.0.6
 python-dotenv==0.15.0
 Quart~=0.14.1
+mcstatus~=5.1.1

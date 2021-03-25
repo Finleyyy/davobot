@@ -51,8 +51,12 @@ async def on_message(message):
         return
     if 'davobot' in msg:
         emoji = '👋'
-        if 'dumb' or 'stupid' in msg:
-            await message.channel.send('no u')
+        negatives = ['dumb', 'stupid', 'ugly', 'weird']
+        positives = ['hot', 'sexy', 'handsome', 'cool', 'cute', 'pretty']
+        if any(ext in msg for ext in negatives):
+            await message.channel.send('no u :(')
+        elif any(ext in msg for ext in positives):
+            await message.channel.send('no u :)')
         else:
             await message.add_reaction(emoji)
 
@@ -64,8 +68,9 @@ async def on_message(message):
         await message.add_reaction(emoji)
                             # general-chatter                           #osu
     if message.channel.id == 527876598834135047 or message.channel.id == 703271365591040000:
-        if (' map' in msg) or ('song' in msg):
-            await message.channel.send("Check <#810996735274254337> for beatmaps from Davolaf's TikTok")
+        if ('map' in msg) or (' song' in msg) or ('umaru' in msg):
+            helpmsg = f"Check <#810996735274254337> for beatmaps from Davolaf's TikTok"
+            await message.channel.send(helpmsg, delete_after=20, reference=message, mention_author=True)
         else:
             return
     await bot.process_commands(message)

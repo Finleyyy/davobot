@@ -1,11 +1,38 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ext.commands import MissingPermissions, ChannelNotFound, MissingRequiredArgument
+from mcstatus import MinecraftServer
 
 
 class ModeratingCOG(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.water.start()
+        self.mcstatus.start()
+
+    def cog_unload(self):
+        self.printer.cancel()
+        self.mcstatus.cancel()
+
+    @tasks.loop(minutes=5)
+    async def mcstatus(self):
+        server = MinecraftServer.lookup("75.119.138.254:25565")
+        stri = f"Online players: {server.status().players.online}"
+        await self.bot.get_channel(818135582341070878).edit(topic=stri)
+
+    @tasks.loop(hours=1)
+    async def water(self):
+        # general-chatter
+        channel = self.bot.get_channel(527876598834135047)
+        await channel.send("Drink water guys!")
+
+    @water.before_loop
+    async def before_water(self):
+        await self.bot.wait_until_ready()
+
+    @mcstatus.before_loop
+    async def before_mcstatus(self):
+        await self.bot.wait_until_ready()
 
     @commands.command(name='post', description='Posts a message in given channel')
     @commands.has_permissions(kick_members=True)
