@@ -68,10 +68,12 @@ async def on_message(message):
         await message.add_reaction(emoji)
                             # general-chatter                           #osu
     if message.channel.id == 527876598834135047 or message.channel.id == 703271365591040000:
-        if ('map' in msg) or (' song' in msg) or ('umaru' in msg):
+        if ('map' in msg) or (' song' in msg) or ('umaru' in msg) and ('beatmapsets' not in msg):
             helpmsg = f"Check <#810996735274254337> for beatmaps from Davolaf's TikTok"
-            await message.channel.send(helpmsg, delete_after=20, reference=message, mention_author=True)
-        else:
+            await message.channel.send(helpmsg, delete_after=30, reference=message, mention_author=True)
+        elif 'skin' in msg:
+            helpmsg = f"Do \"!skin\" in <#794588160482213948> to get Davolaf's skin!"
+            await message.channel.send(helpmsg, delete_after=30, reference=message, mention_author=True)
             return
     await bot.process_commands(message)
 

@@ -5,20 +5,26 @@ from mcstatus import MinecraftServer
 
 
 class ModeratingCOG(commands.Cog):
+
     def __init__(self, bot):
         self.bot = bot
         self.water.start()
         self.mcstatus.start()
 
     def cog_unload(self):
-        self.printer.cancel()
+        self.water.cancel()
         self.mcstatus.cancel()
+
+    async def updatemc(self, channelid):
+        server = MinecraftServer.lookup("75.119.138.254:25565")
+        stri = "The server is currently offline!"
+        if server is not None:
+            stri = f"Online players: {server.status().players.online}"
+        await self.bot.get_channel(channelid).edit(topic=stri)
 
     @tasks.loop(minutes=5)
     async def mcstatus(self):
-        server = MinecraftServer.lookup("75.119.138.254:25565")
-        stri = f"Online players: {server.status().players.online}"
-        await self.bot.get_channel(818135582341070878).edit(topic=stri)
+        await self.updatemc(818135582341070878)
 
     @tasks.loop(hours=1)
     async def water(self):
@@ -50,7 +56,6 @@ class ModeratingCOG(commands.Cog):
         await ctx.send("https://cdn.discordapp.com/attachments/527876598834135047/823679128117051402/unknown.png")
 
     @commands.command(name='emergency', description='Mentions the mods', aliases=['emerg'])
-    @commands.has_role('Guests')
     @commands.cooldown(1, 30)
     async def emerg(self, ctx):
         guild = ctx.bot.get_guild(527869594279477251)
@@ -62,6 +67,21 @@ class ModeratingCOG(commands.Cog):
     @commands.command(name='invite', description='Sends an invite link to the Discord')
     async def invite(self, ctx):
         await ctx.send("https://discord.gg/ru7qzEEQ5w")
+
+    @commands.command(name='mcupdate', description='Updates the Minecraft server user count', aliases=['mcu'])
+    async def mcupdate(self, ctx):
+        await self.updatemc(818135582341070878)
+        await ctx.message.delete()
+
+    @commands.command(name='urbandictionary', description='Sends link to given word in Urban Dictionary', aliases=['ud', 'urban', 'urbandict'])
+    async def urbandictionary(self, ctx, *, arg):
+        argu = arg.replace(' ', '%20')
+        await ctx.send('https://www.urbandictionary.com/define.php?term={0}'.format(argu))
+
+    @urbandictionary.error
+    async def udict_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('You need to give a word to look up!')
 
     @emerg.error
     async def emerg_error(self, ctx, error):
