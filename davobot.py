@@ -66,7 +66,7 @@ async def on_message(message):
     if ' tea ' in msg:
         emoji = '🍵'
         await message.add_reaction(emoji)
-                            # general-chatter                           #osu
+        # general-chatter                           #osu
     if message.channel.id == 527876598834135047 or message.channel.id == 703271365591040000:
         if ('map' in msg) or (' song' in msg) or ('umaru' in msg) and ('beatmapsets' not in msg):
             helpmsg = f"Check <#810996735274254337> for beatmaps from Davolaf's TikTok"
@@ -83,8 +83,15 @@ async def ping(ctx):
     await ctx.send('Pong! {0} seconds latency'.format(round(bot.latency, 3)))
 
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return
+    raise error
+
+
 if __name__ == '__main__':
     for extension in initial_extensions:
         bot.load_extension(extension)
-    #bot.ipc.start()
+    # bot.ipc.start()
     bot.run(TOKEN)

@@ -73,10 +73,29 @@ class ModeratingCOG(commands.Cog):
         await self.updatemc(818135582341070878)
         await ctx.message.delete()
 
-    @commands.command(name='urbandictionary', description='Sends link to given word in Urban Dictionary', aliases=['ud', 'urban', 'urbandict'])
+    @commands.command(name='urbandictionary', description='Sends link to given word in Urban Dictionary',
+                      aliases=['ud', 'urban', 'urbandict'])
     async def urbandictionary(self, ctx, *, arg):
         argu = arg.replace(' ', '%20')
         await ctx.send('https://www.urbandictionary.com/define.php?term={0}'.format(argu))
+
+    @commands.command(name='acceptmod', description='Sends a DM to given user, telling them they got accepted as mod')
+    @commands.has_permissions(administrator=True)
+    async def acceptmod(self, ctx, arg: discord.Member):
+        accstr = f"Heyhey <@{arg.id}>! We, the staff on Davolaf's Chillhouse Discord, have looked at your" \
+                 f" application as a Moderator and we're happy to say that you've been accepted! You will receive the" \
+                 f" \"Junior MODS\" role shortly! Good luck in the one month test phase :)"
+        role = self.bot.get_guild(527869594279477251).get_role(825271668971929610)
+        user = self.bot.get_guild(527869594279477251).get_member(arg.id)
+        await arg.send(accstr)
+        await user.add_roles(role)
+        reaction = '✅'
+        await ctx.message.add_reaction(reaction)
+
+    @acceptmod.error
+    async def acceptmod_error(self, ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send('You don\'t have the permissions to add someone as Moderator!')
 
     @urbandictionary.error
     async def udict_error(self, ctx, error):
